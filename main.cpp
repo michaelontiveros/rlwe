@@ -4,7 +4,8 @@
 
 int main() {
   RLWE alice;
-  
+
+  alice.genkeys();
   alice.writes();
   alice.encrypts();
   alice.decrypts();

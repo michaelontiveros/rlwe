@@ -11,11 +11,9 @@ RLWE::RLWE() {
   seed();
   udef();
   vdef();
-  genkeys();
   
   printf("\nring learning with errors\n");
   printprime();
-  printkeys();
 }
 
 void RLWE::seed() {
@@ -52,6 +50,8 @@ void RLWE::genkeys() {
   sample(e);
   mul(a, sk, pk);
   add(pk, e, pk);
+
+  printkeys();
 }
 
 void RLWE::adef() {

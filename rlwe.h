@@ -13,6 +13,7 @@ public:                     //     is a finite ring
   uint16_t  pt[256];        // pt  is the plain text
   
   RLWE();
+  void genkeys();           // defines the arrays  pk, sk
   void writes();            // defines  the array  pt
   void encrypts();          // defines  the arrays c,t
   void decrypts();          // rewrites the array  pt
@@ -29,7 +30,6 @@ private:
   void adef();              // defines the array   a
   void udef();              // defines the array   u
   void vdef();              // defines the array   v
-  void genkeys();           // defines the arrays  pk, sk
   
   void sample(uint16_t *x); // defines a   small   x     
 
