@@ -48,8 +48,8 @@ void RLWE::vdef() {
 
 void RLWE::genkeys() {
   adef();
-  lil(sk);
-  lil(e);
+  sample(sk);
+  sample(e);
   mul(a, sk, pk);
   add(pk, e, pk);
 }
@@ -62,7 +62,9 @@ void RLWE::adef() {
   }
 }
 
-void RLWE::lil(uint16_t *x) {
+// the following function samples x from a uniform distibution
+// it should really       sample  x from a normal distribution
+void RLWE::sample(uint16_t *x) {
   uint16_t k;
   
   for(k = 0; k < N; k++) {
@@ -107,13 +109,13 @@ void RLWE::decode() {
 
 void RLWE::encrypts() {
   encode();
-  lil(e);
+  sample(e);
   mul(a,   e,  c);
   mul(pk,  e,  t);
-  lil(e);
+  sample(e);
   add(c,   e,  c);
   add(pt,  t,  t);
-  lil(e);
+  sample(e);
   add(e,   t,  t);
   mul(p-1, t,  t); 
 
