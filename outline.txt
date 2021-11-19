@@ -1,0 +1,20 @@
+p      prime
+N  =   2^n
+R  =  (Z/p)[x] / (x^N + 1)                   // Ring
+m \in (Z/2)^N                                // message
+
+genkeys()
+  pk1 \in R sampled uniformally              // public key
+  sk  \in R sampled    normally              // secret key
+  e   \in R sampled    normally              // error
+  pk2  =  pk1 * sk + e                       // public key
+
+encrypt(m)                                   
+  pt  = (p-1)/2 * m \in R                    // plaintext
+  e, e1, e2         \in R sampled normally   // errors
+  ct1 = pk1 * e + e1                         // ciphertext
+  ct2 = pk2 * e + e2 + pt                    // ciphertext
+
+decrypt(ct1, ct2)
+  pt' = ct1 * sk - ct2 \in  Z^N
+  m   = 2 /(p-1) * pt' \in (Z/2)^N           // message

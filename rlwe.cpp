@@ -45,20 +45,20 @@ void RLWE::vdef() {
 }
 
 void RLWE::genkeys() {
-  adef();
+  pk1def();
   sample(sk);
   sample(e);
-  mul(a, sk, pk);
-  add(pk, e, pk);
+  mul(pk1, sk, pk2);
+  add(pk2, e,  pk2);
 
   printkeys();
 }
 
-void RLWE::adef() {
+void RLWE::pk1def() {
   uint16_t k;
   
   for(k = 0; k < N; k++) {
-    a[k] = rand() % p;
+    pk1[k] = rand() % p;
   }
 }
 
@@ -110,22 +110,22 @@ void RLWE::decode() {
 void RLWE::encrypts() {
   encode();
   sample(e);
-  mul(a,   e,  c);
-  mul(pk,  e,  t);
+  mul(pk1, e,   ct1);
+  mul(pk2, e,   ct2);
   sample(e);
-  add(c,   e,  c);
-  add(pt,  t,  t);
+  add(ct1, e,   ct1);
+  add(pt,  ct2, ct2);
   sample(e);
-  add(e,   t,  t);
-  mul(p-1, t,  t); 
+  add(e,   ct2, ct2);
+  mul(p-1, ct2, ct2); 
 
-  printf("encryption\n");
+  printf("ciphertext\n");
   printciphertext();
 }
 
 void RLWE::decrypts() {
-  mul(c, sk, pt);
-  add(t, pt, pt);
+  mul(ct1, sk, pt);
+  add(ct2, pt, pt);
   decode();
 
   printf("\n\ndecryption\n");
@@ -139,14 +139,14 @@ void RLWE::printprime() {
 void RLWE::printkeys() {
   uint16_t k;
   
-  printf("\n\nrandom a\n");
-  for(k = 0; k < N; k++) {
-    printf("%i, ", a[k]);
-  }                 
-                                             
   printf("\n\npublic key\n");
   for(k = 0; k < N; k++) {
-    printf("%i, ", pk[k]);
+    printf("%i, ", pk1[k]);
+  }                 
+                                             
+  printf("\n\n");
+  for(k = 0; k < N; k++) {
+    printf("%i, ", pk2[k]);
   }
   
   printf("\n\nsecret key\n");
@@ -179,11 +179,11 @@ void RLWE::printciphertext() {
   uint16_t k;
 
   for(k = 0; k < N; k++) {
-    printf("%i, ", c[k]);
+    printf("%i, ", ct1[k]);
   }
   printf("\n\n");
   for(k = 0; k < N; k++) {
-    printf("%i, ", t[k]);
+    printf("%i, ", ct2[k]);
   }
 }
 
@@ -282,4 +282,3 @@ void RLWE::mul(uint16_t *x, uint16_t *y, uint16_t *z) {
 uint8_t rev(uint8_t k) {
    return (k * 0x0000000202020202 & 0x0000010884422010) % 1023;
 }
-
