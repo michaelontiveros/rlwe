@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include "rlwe.h"
 
-int main() {
+int main( ) 
+{
   RLWE alice;
 
-  alice.genkeys();
-  alice.writes();
-  alice.encrypts();
-  alice.decrypts();
+  alice.genkeys( );
+  alice.writes( );
+  alice.encrypts( );
+  alice.decrypts( );
   
   return 0;
 }
