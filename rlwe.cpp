@@ -236,11 +236,11 @@ void RLWE::ntt( uint16_t  * x )
 		{ 
       for( k = 0; k < ( N >> ( i + 1 ) ); k++ )  // k < N / 2^(i+1)
 			{
-        r    = ( 1 << i )         + j;           // r = 2^i          + j
-	      s    = ( N >> i ) * j     + k;           // s = jN / 2^i     + k
-	      t    = ( N >> ( i + 1 ) ) + s;           // t =  N / 2^(i+1) + s
-        xs   = x[ s ] + u[ r ] *      x[ t ];
-	      xt   = x[ s ] + u[ r ] * ( p - x[ t ] );
+        r      = ( 1 << i )         + j;         // r = 2^i          + j
+	      s      = ( N >> i ) * j     + k;         // s = jN / 2^i     + k
+	      t      = ( N >> ( i + 1 ) ) + s;         // t =  N / 2^(i+1) + s
+        xs     = x[ s ] + u[ r ] *      x[ t ];
+	      xt     = x[ s ] + u[ r ] * ( p - x[ t ] );
         x[ s ] = xs % p;
         x[ t ] = xt % p;
       }
